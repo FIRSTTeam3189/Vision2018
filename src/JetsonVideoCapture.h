@@ -15,20 +15,27 @@
  * The JetsonVideoMode describes what the resolution and frames per second that the camera
  * captures pictures.
  *
+ * Lemme smash \(*.*\)   <--  <--
+ *
  * We have the width by height by frame rate per one second. (k{width}x{height}x{framerate per 1 second})
+ *                                ^
+ *                                 \
  */
 enum class JetsonVideoMode {
-
+//                                  ^
+//                                  |
 	k1280x720x30=0,
 	k1280x720x60=1,
 	k1280x720x120=2,
-
+//								     ^
+//                                   |
 	k1920x1080x30=3,
 	k1920x1080x60=4,
 
 	k2592x1944x30=5,
 	k2592x1458x30=6
-
+	//                                ^
+	//							      |
 };
 
 struct VideoMode {
@@ -39,6 +46,9 @@ struct VideoMode {
 /**
  * A wrapper to provide an easier interface to access the onboard camera of the Jetson.
  * This class provides methods for manipulating the default camera settings.
+ *                                    ^
+ *									  |
+ * BECKY BECKY BEEEECCCKKKKKYYYYY ->
  */
 class JetsonVideoCapture {
 public:

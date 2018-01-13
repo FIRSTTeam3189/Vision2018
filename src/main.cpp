@@ -9,28 +9,35 @@
 #include <iomanip>
 #include <cstdlib>
 #include "JetsonVideoCapture.h"
+#include "json.hpp"
+#include "VisionConfigurator.h"
 
 using namespace cv;
+using json = nlohmann::json;
+
+int threshold_value = 150;
+int threshold_type = 2;
+int max_BINARY_value = 255;
+//Oh Yes daddy i like that code you have here
+int const max_type = 4;
+int const max_value = 255;
+void Threshold_Demo( int, void* );
+const char* trackbar_type = "Type: \n 0: Binary \n 1: Binary Inverted \n 2: Truncate \n 3: To Zero \n 4: To Zero Inverted";
+const char* trackbar_value = "Value";
 
 int main(int argc, char** argv) {
 	VideoCapture cap;
-	open_jetson_video_capture(cap, JetsonVideoMode::k1920x1080x30);
+	open_jetson_video_capture(cap, JetsonVideoMode::k1280x720x30);
 	cap.set(CV_CAP_PROP_AUTO_EXPOSURE, 0);
 
-	namedWindow("Display Image", WINDOW_AUTOSIZE);
 
-	std::cout<<convert_JetsonVideoMode(JetsonVideoMode::k1920x1080x60);
-	while (waitKey(10) < 0) {
-		Mat img;
-		cap >> img;
-		if (!img.data) {
-			std::cout << "Failed to grab a frame." << std::endl;
-			break;
-		}
+	json config = gen_config(cap);
 
-		imshow("Display Image", img);
-	}
 
 	return 0;
+
 }
 
+void Threshold_Demo(int newValue, void*) {
+	std::cout << "Changed threshold value to: " << newValue << std::endl;
+}
